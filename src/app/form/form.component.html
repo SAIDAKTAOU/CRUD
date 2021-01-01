@@ -1,0 +1,22 @@
+<div class="formulaire">
+    <form class="text-center border border-light p-5" action="list">
+        <p [innerHTML]="action" class="h4 mb-4"></p>
+        <div class="form-group">
+            <input #id type="text" class="form-control mb-4" placeholder="Id"
+            [disabled]='state' [value]="bid">
+        </div>
+    
+        <div class="form-group">
+            <input #nom type="text" class="form-control mb-4" placeholder="Nom" [value]="bnom">
+        </div>
+    
+        <div class="form-group">
+            <input #age type="text" class="form-control mb-4" placeholder="Age" [value]="bage">
+        </div>
+    
+        <button type="button" class="btn btn-info btn-block"
+                (click)="actionPerson(+id.value, nom.value, +age.value)"
+                 routerLink="/list">Send</button>
+    
+    </form>
+</div>
