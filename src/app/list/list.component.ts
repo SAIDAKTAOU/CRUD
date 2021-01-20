@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Person } from '../Person';
 import { PersonService } from '../person.service';
@@ -10,7 +11,7 @@ import { PersonService } from '../person.service';
 })
 export class ListComponent implements OnInit {
   persons:Observable<Person[]>;
-  constructor(private personservice:PersonService) { }
+  constructor(private router:Router,private personservice:PersonService) { }
 
   ngOnInit(): void {
     this.persons = this.personservice.getAllPersons();
@@ -18,7 +19,9 @@ export class ListComponent implements OnInit {
 
   deletePerson(id:number){
     if(confirm('Vous etes sur de vouloir supprimer l\'element?')){
-    this.personservice.deletePerson(id);
+    this.personservice.deletePerson(id).subscribe()
+    this.ngOnInit()
+
   }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Person } from '../Person';
 import { PersonService } from '../person.service';
 
 @Component({
@@ -11,12 +12,15 @@ export class FormComponent implements OnInit {
   action='Ajouter une personne'
   state=''
   bid:number; bnom:string; bage:number
-  constructor(private personservice:PersonService, private route:ActivatedRoute) { }
+  constructor(private router:Router,private personservice:PersonService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     if(this.route.snapshot.params.id !==undefined){
       const pers=this.personservice.getPerson(this.route.snapshot.params.id)
-      this.bid=pers.id; this.bnom=pers.nom ; this.bage=pers.age
+      .subscribe(pers=>{
+        this.bid=pers.id; this.bnom=pers.nom ; this.bage=pers.age
+      })
+      
       this.action='Modifier une personne'
       this.state='disabled'
     
@@ -30,9 +34,11 @@ export class FormComponent implements OnInit {
   }
   actionPerson(id:number,nom:string,age:number){
     if(this.action=="Ajouter une personne"){
-      this.personservice.addPerson(id,nom,age)
+      this.personservice.addPerson(new Person(id,nom,age)).subscribe();
+      this.router.navigate(["list"])
     }else{
-      this.personservice.updatePerson(id,nom,age)
+      this.personservice.updatePerson(new Person(id,nom,age)).subscribe()
+      this.router.navigate(["list"])
 
     }
   }

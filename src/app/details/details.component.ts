@@ -15,9 +15,11 @@ age:number
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id
-    const person = this.personservice.getPerson(this.id)
-    this.nom = person.nom
+    const person = this.personservice.getPerson(this.id).subscribe(person=>{
+      this.nom = person.nom
     this.age = person.age
+    })
+    
   }
 
 }

@@ -14,19 +14,23 @@ export class PersonService {
   private backEndURL="http://localhost:8080/personnes";
 
   constructor(private http: HttpClient) { }
+  
+  getPerson(id:number):Observable<Person>{
+    return this.http.get<Person>(this.backEndURL+"/"+id)
+   }
 
-  getPerson(id){return this.persons.find(e=>e.id===+id)}
+  getAllPersons(): Observable<Person[]>{
+    return this.http.get<Person[]>(this.backEndURL)}
 
-  getAllPersons(): Observable<Person[]>{return this.http.get<Person[]>(this.backEndURL)}
-
-  addPerson(id:number,nom:string,age:number){
-    this.persons.push({id,nom,age})}
-
-  deletePerson(id: number){
-    this.persons.splice(this.persons.findIndex(e => e.id === +id), 1);
+  addPerson(person: Person): Observable<Person>{
+    return this.http.post<Person>(this.backEndURL,person)
   }
 
-  updatePerson(id:number,nom:string,age:number){
-    this.persons[this.persons.findIndex(e => e.id === +id)]={id,nom,age}
+  deletePerson(id: number):Observable<Person>{
+    return this.http.delete<Person>(this.backEndURL+"/"+id)
+  }
+
+  updatePerson(person:Person):Observable<Person>{
+    return this.http.put<Person>(this.backEndURL,person)
   }
 }
