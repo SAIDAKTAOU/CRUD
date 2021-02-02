@@ -10,6 +10,7 @@ import { FormComponent } from './form/form.component';
 import { DetailsComponent } from './details/details.component';
 import { ParentComponent } from './parent/parent.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ObsExempleComponent } from './obs-exemple/obs-exemple.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     ListComponent,
     FormComponent,
     DetailsComponent,
-    ParentComponent
+    ParentComponent,
+    ObsExempleComponent
   ],
   imports: [
     BrowserModule,

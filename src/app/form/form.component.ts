@@ -34,11 +34,21 @@ export class FormComponent implements OnInit {
   }
   actionPerson(id:number,nom:string,age:number){
     if(this.action=="Ajouter une personne"){
-      this.personservice.addPerson(new Person(id,nom,age)).subscribe();
-      this.router.navigate(["list"])
+      this.personservice.addPerson(new Person(id,nom,age))
+      .subscribe(
+        data=>{
+          this.router.navigate(["list"])
+        }
+      );
+      
     }else{
-      this.personservice.updatePerson(new Person(id,nom,age)).subscribe()
-      this.router.navigate(["list"])
+      this.personservice.updatePerson(new Person(id,nom,age))
+      .subscribe(
+        data=>{
+          this.router.navigate(["list"])
+        }
+      )
+      
 
     }
   }
